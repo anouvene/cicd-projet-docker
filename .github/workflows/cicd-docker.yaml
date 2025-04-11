@@ -70,7 +70,6 @@ jobs:
           
     - name: Vérifier les vulnérabilités
       run: |
-        cd node-api
         npm audit --audit-level=moderate
 
     - name: Upload du rapport de couverture sur Codecov
