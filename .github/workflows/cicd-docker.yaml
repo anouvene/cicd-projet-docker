@@ -163,6 +163,7 @@ jobs:
     - name: Déploiement
       uses: ./.github/actions/deploy # Action personnalisée
       with:
+        server_user: ${{ env.SERVER_USER}}
         server_ip: ${{ env.SERVER_PRODUCTION }}
         secret_key: ${{ secrets.OVH_PROD_PKEY }}
         token_github: ${{ secrets.GITHUB_TOKEN }}
