@@ -23,6 +23,12 @@ runs:
         ssh-add - <<< "${{ inputs.secret_key }}"
         mkdir -p ~/.ssh
         ssh-keyscan -p 2704 -H ${{ inputs.server_ip }} >> ~/.ssh/known_hosts
+
+        # 🔐 Copie du fichier docker-compose sur le serveur distant
         scp -P 2704 -r docker-compose.prod.yml ${{ inputs.server_user }}@${{ inputs.server_ip }}:/var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml
-        ssh -p 2704 ${{ inputs.server_user }}@${{ inputs.server_ip }} "docker login ghcr.io -u ${{ github.actor }} --password-stdin ${{ inputs.token_github }} &&
-          docker compose -f /var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml up -d --force-recreate"
+
+        # 🔐 Login Docker sécurisé avec redirection de token via stdin
+        ssh -p 2704 ${{ inputs.server_user }}@${{ inputs.server_ip }} "
+          echo '${{ inputs.token_github }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
+          docker compose -f /var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml up -d --force-recreate
+        "
