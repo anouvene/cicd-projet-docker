@@ -24,5 +24,5 @@ runs:
         mkdir -p ~/.ssh
         ssh-keyscan -p 2704 -H ${{ inputs.server_ip }} >> ~/.ssh/known_hosts
         scp -r docker-compose.prod.yml root@${{ inputs.server_ip }} -P 2704:/var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml
-        ssh {{ inputs.server_user }} @${{ inputs.server_ip }} -p 2704 "docker login ghcr.io -u ${{ github.actor }} --password-stdin ${{ inputs.token_github }} &&
+        ssh -p 2704 {{ inputs.server_user }}@${{ inputs.server_ip }} "docker login ghcr.io -u ${{ github.actor }} --password-stdin ${{ inputs.token_github }} &&
           docker compose -f /var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml up -d --force-recreate"
