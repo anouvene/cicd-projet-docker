@@ -18,6 +18,5 @@ services:
     image: ghcr.io/anouvene/cicd-projet-docker/frontend:latest
     pull_policy: always
     ports:
-      - target: 80
-        published: 80
+      - 8080:80 # Port exposé sur le serveur (évite conflit avec port 80):Port exposé dans le container
     restart: always
