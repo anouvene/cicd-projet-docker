@@ -2,13 +2,12 @@
 
 describe('Vue 3 App', () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.wait(2000);
+    cy.visit('/realisations/cicd-docker/');
   });
 
   it("Visite la page d'accueil", () => {
   
-    cy.contains('h1', 'Home');
+    cy.contains('h1', 'Home', );
   });
 
   it('Visite la page de login', () => {
