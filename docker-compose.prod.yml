@@ -7,7 +7,7 @@ services:
     environment:
       - NODE_ENV=production
     ports:
-      - "3000:80"
+      - "3001:80"
     deploy:
       replicas: 3
       update_config:
