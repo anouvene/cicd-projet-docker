@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('Vue 3 App', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -7,7 +5,10 @@ describe('Vue 3 App', () => {
 
   it('Visite la page d\'accueil', () => {
     cy.visit('/');
-    cy.get('body').screenshot(); // Pour voir visuellement ce que voit Cypress  });
+    cy.get('body').screenshot();
+    cy.get('body').invoke('html').then(html => {
+      console.log('DOM:', html);
+    });
   });
 
   // it('Visite la page de register', () => {
