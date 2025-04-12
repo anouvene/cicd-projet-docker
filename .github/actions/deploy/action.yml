@@ -27,9 +27,9 @@ runs:
         # 🔐 Copie du fichier docker-compose sur le serveur distant
         scp -P 2704 -r docker-compose.prod.yml ${{ inputs.server_user }}@${{ inputs.server_ip }}:/var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml
 
-        # 🔐 Login Docker sécurisé avec redirection de token via stdin
-        ssh -p 2704 ${{ inputs.server_user }}@${{ inputs.server_ip }} "
-          echo '${{ inputs.token_github }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin 
-          && docker compose -f /var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml down
-          && docker compose -f /var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml up -d --force-recreate
-        "
+        # 🔐 Connexion SSH avec bloc de commandes multi-lignes
+        ssh -p 2704 ${{ inputs.server_user }}@${{ inputs.server_ip }} << EOF
+          echo '${{ inputs.token_github }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker compose -f /var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml down
+          docker compose -f /var/www/html/anouvene/realisations/cicd-docker/docker-compose.prod.yml up -d --force-recreate
+      EOF
