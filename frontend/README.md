@@ -44,3 +44,9 @@ npm run build
 ```sh
 npm run lint
 ```
+
+
+### Lancer le site en Local:   http://localhost:5173/
+```sh
+npm run dev
+```

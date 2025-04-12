@@ -6,7 +6,8 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig(async () => {
   const { default: istanbul } = await import('vite-plugin-istanbul');
 
-  return {
+  return {                              // / uri par defaut en local
+    base: process.env.VITE_BASE || '/', // 👈 dynamique avec process.env.VITE_BASE : ex: '/realisations/cicd-docker/' pour uri du site sur serveur distant
     plugins: [
       istanbul({
         include: 'src/*',
