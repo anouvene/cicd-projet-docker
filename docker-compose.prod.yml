@@ -6,6 +6,8 @@ services:
     pull_policy: always
     environment:
       - NODE_ENV=production
+    ports:
+      - "3000:80"
     deploy:
       replicas: 3
       update_config:
