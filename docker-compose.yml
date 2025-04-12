@@ -23,7 +23,7 @@ services:
       cypress run 
         --headless 
         --browser chrome 
-        --config-file cypress.config.ts 
+        --config-file cypress.headless.config.js 
     depends_on:
       - frontend
       - node-api
