@@ -9,7 +9,7 @@ services:
   frontend:
     image: ghcr.io/anouvene/cicd-projet-docker/frontend:latest
     ports:
-      - '80:80'
+      - '8888:80'
 
   cypress:
     image: cypress/included
@@ -23,8 +23,7 @@ services:
       cypress run 
         --headless 
         --browser chrome 
-        --config-file cypress.headless.config.js 
-        --config baseUrl=http://frontend/realisations/cicd-docker/
+        --config-file cypress.config.ts 
     depends_on:
       - frontend
       - node-api
