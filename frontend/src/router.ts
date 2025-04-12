@@ -3,7 +3,7 @@ import { isAuthenticatedGuard, isNotAuthenticatedGuard } from './shared/guards';
 import { useUser } from './shared/stores';
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
