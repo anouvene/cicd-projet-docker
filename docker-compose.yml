@@ -1,19 +1,30 @@
 version: '3.9'
+
 services:
   node-api:
     image: ghcr.io/anouvene/cicd-projet-docker/node-api:latest
     ports:
       - '3000:80'
+
   frontend:
     image: ghcr.io/anouvene/cicd-projet-docker/frontend:latest
     ports:
       - '80:80'
+
   cypress:
     image: cypress/included
     working_dir: /e2e
     volumes:
       - ./frontend:/e2e
-    entrypoint: cypress run --config baseUrl=http://frontend --headless --browser chrome -C cypress.headless.config.js
+    environment:
+      # 👇 baseUrl mis à jour avec le bon chemin public
+      - CYPRESS_BASE_URL=http://frontend/realisations/cicd-docker/
+    entrypoint: >
+      cypress run 
+        --headless 
+        --browser chrome 
+        --config-file cypress.headless.config.js 
+        --config baseUrl=${CYPRESS_BASE_URL}
     depends_on:
       - frontend
       - node-api
