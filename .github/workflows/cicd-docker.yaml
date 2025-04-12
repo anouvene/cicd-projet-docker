@@ -116,7 +116,7 @@ jobs:
           tags: ${{ matrix.full_image_name }}:latest
           context: ./${{ matrix.path }}
           platforms: linux/amd64       # ✅ Important pour compatibilité serveur VPS
-          #no-cache: true               # ✅ Forcer rebuild complet pour que VITE_BASE soit pris en compte
+          no-cache: true               # ✅ Forcer rebuild complet pour que VITE_BASE soit pris en compte
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
