@@ -1,6 +1,7 @@
 import type { User, UserForm } from '../interfaces/index';
 
-const BASE_URL = '/api/user';
+const BASE_PATH = import.meta.env.BASE_URL || '/';
+const BASE_URL = `${BASE_PATH}api/user`;
 
 export async function createUser(userForm: UserForm) {
   const response = await fetch(BASE_URL, {
