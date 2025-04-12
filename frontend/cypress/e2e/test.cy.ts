@@ -2,7 +2,7 @@
 
 describe('Vue 3 App', () => {
   beforeEach(() => {
-    cy.visit('/realisations/cicd-docker/');
+    cy.visit('/');
   });
 
   it("Visite la page d'accueil", () => {

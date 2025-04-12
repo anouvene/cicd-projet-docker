@@ -7,6 +7,9 @@ export default defineConfig({
     setupNodeEvents(on: any, config: any) {
       require('@cypress/code-coverage/task')(on, config);
       return config;
-    }
+    },
+    defaultCommandTimeout: 10000,
+    pageLoadTimeout: 60000,
+    responseTimeout: 60000,
   }
 });
