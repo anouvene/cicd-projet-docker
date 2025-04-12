@@ -24,7 +24,7 @@ services:
         --headless 
         --browser chrome 
         --config-file cypress.headless.config.js 
-        --config baseUrl=${CYPRESS_BASE_URL}
+        --config baseUrl=http://frontend/realisations/cicd-docker/
     depends_on:
       - frontend
       - node-api
