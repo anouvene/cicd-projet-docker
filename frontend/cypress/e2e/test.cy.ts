@@ -1,9 +1,13 @@
+/// <reference types="cypress" />
+
 describe('Vue 3 App', () => {
   beforeEach(() => {
     cy.visit('/');
+    cy.wait(2000);
   });
 
   it("Visite la page d'accueil", () => {
+  
     cy.contains('h1', 'Home');
   });
 
