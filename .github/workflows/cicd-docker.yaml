@@ -128,6 +128,7 @@ jobs:
             --build-arg VITE_APP_BASE=/ \
             -t ghcr.io/anouvene/cicd-projet-docker/frontend:e2e \
             -f Dockerfile .
+          docker push ghcr.io/anouvene/cicd-projet-docker/frontend:e2e
 
   e2e:
     needs: [build]
