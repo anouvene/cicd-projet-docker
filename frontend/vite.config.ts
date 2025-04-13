@@ -11,7 +11,7 @@ export default defineConfig(async () => {
     plugins: [
       istanbul({
         include: 'src/*',
-        exclude: ['node_modules', 'test/'],
+        exclude: ['node_modules'],
         extension: ['.js', '.ts', '.vue'],
         forceBuildInstrument: true
       }),
