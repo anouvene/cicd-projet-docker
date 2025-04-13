@@ -119,6 +119,14 @@ jobs:
           no-cache: true               # ✅ Forcer rebuild complet pour que VITE_BASE soit pris en compte
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      
+      - name: Build frontend pour les tests # Image pour cypress uniquement
+        if: matrix.path == 'frontend'
+        run: |
+          docker build \
+            --build-arg VITE_APP_BASE=/ \
+            -t ghcr.io/anouvene/cicd-projet-docker/frontend:e2e \
+            -f frontend/Dockerfile .
 
   e2e:
     needs: [build]
