@@ -3,17 +3,17 @@ services:
   node-api:
     image: ghcr.io/anouvene/cicd-projet-docker/node-api:latest
     ports:
-      - '3100:80'
+      - '3000:80'
   frontend:
     image: ghcr.io/anouvene/cicd-projet-docker/frontend:latest
     ports:
-      - '8888:80'
+      - '80:80'
   cypress:
     image: cypress/included
     working_dir: /e2e
     volumes:
       - ./frontend:/e2e
-    entrypoint: cypress run --config baseUrl=http://frontend --headless --browser chrome -C cypress.headless.config.js
+    entrypoint: cypress run --config baseUrl=http://localhost:80 --headless --browser chrome -C cypress.headless.config.js
     depends_on:
       - frontend
       - node-api
