@@ -50,3 +50,47 @@ npm run lint
 ```sh
 npm run dev
 ```
+
+
+# CI/CD avec Docker, GitHub Actions, Cypress et OVH
+
+Ce projet met en place un pipeline CI/CD complet pour une application fullstack (VueJS + NodeJS + MongoDB), avec tests automatisés, build d'images Docker, tests E2E via Cypress, et déploiement sur un VPS OVH.
+
+---
+
+## 🌐 Technologies principales
+
+- **Frontend** : Vue 3, Vite  
+- **Backend** : NodeJS, Express, MongoDB  
+- **Tests unitaires** : Vitest (frontend), Jest (backend)  
+- **Tests E2E** : Cypress  
+- **CI/CD** : GitHub Actions + Docker + GitHub Container Registry (GHCR)  
+- **Déploiement** : Serveur VPS OVH (Debian 11)
+
+---
+
+## ⚙️ Structure des jobs GitHub Actions
+
+| Job                  | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| `tests_frontend`     | Lint + analyse des dépendances + tests unitaires du frontend avec Vitest   |
+| `tests_backend`      | Tests unitaires du backend avec Jest                                        |
+| `build`              | Build et push des images Docker (frontend & backend) vers GHCR              |
+| `e2e`                | Lance Cypress avec `docker-compose` pour tester frontend + backend ensemble |
+| `deploy_production`  | Déploiement sur OVH si `e2e` est validé                                     |
+
+---
+
+## 🔧 Détails des problèmes résolus
+
+### 1. ❌ Cypress ne trouvait pas les contenus des pages VueJS
+- **Problème** : Cypress ne trouvait pas le texte "Home", "Connexion", "Inscription"
+- **Cause** : l'app était buildée avec `base: /realisations/cicd-docker/`, donc cassée en environnement test
+- **Solution** : utilisation de `--build-arg VITE_BASE=/` pour les tests
+
+### 2. ❌ Variable d’environnement ignorée dans le `Dockerfile`
+- **Problème** : le `Dockerfile` ne prenait pas en compte les build args
+- **Solution** : ajout de :
+  ```dockerfile
+  ARG VITE_BASE
+  ENV VITE_BASE=$VITE_BASE
