@@ -13,6 +13,7 @@ export default (async () => {
     defineConfig({
       test: {
         environment: 'jsdom',
+        include: ['src/**/*.test.ts'],
         exclude: [...configDefaults.exclude, 'e2e/*'],
         root: fileURLToPath(new URL('./', import.meta.url)),
         coverage: {
