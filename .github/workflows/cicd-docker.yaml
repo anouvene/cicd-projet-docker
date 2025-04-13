@@ -120,13 +120,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       
-      - name: Build frontend pour les tests # Image pour cypress uniquement
+      - name: Build frontend pour les tests # Image pour test e2e avec Cypress (voir docker-compose)
         if: matrix.path == 'frontend'
+        working-directory: ./frontend
         run: |
           docker build \
             --build-arg VITE_APP_BASE=/ \
             -t ghcr.io/anouvene/cicd-projet-docker/frontend:e2e \
-            -f frontend/Dockerfile .
+            -f Dockerfile .
 
   e2e:
     needs: [build]
