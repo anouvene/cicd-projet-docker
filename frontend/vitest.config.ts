@@ -1,14 +1,25 @@
 import { fileURLToPath } from 'node:url'
 import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
-import viteConfig from './vite.config'
+import viteConfigFn from './vite.config'
 
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      environment: 'jsdom',
-      exclude: [...configDefaults.exclude, 'e2e/*'],
-      root: fileURLToPath(new URL('./', import.meta.url))
-    }
+export default (async () => {
+  const viteConfig = await viteConfigFn({
+    command: 'build',
+    mode: 'test'
   })
-)
+
+  return mergeConfig(
+    viteConfig,
+    defineConfig({
+      test: {
+        environment: 'jsdom',
+        exclude: [...configDefaults.exclude, 'e2e/*'],
+        root: fileURLToPath(new URL('./', import.meta.url)),
+        coverage: {
+          reporter: ['text', 'lcov'],
+          provider: 'v8'
+        }
+      }
+    })
+  )
+})()
