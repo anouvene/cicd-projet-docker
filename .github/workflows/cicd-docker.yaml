@@ -1,9 +1,9 @@
 name: CI/CD avec images Docker et Docker Compose
 
 env:
-  SERVER_USER: "anouvene"
+  SERVER_USER: "an******"
   #SERVER_STAGING: "78.138.45.88"
-  SERVER_PRODUCTION: "151.80.59.182"
+  SERVER_PRODUCTION: "151.**.**.***"
 
 
 concurrency: 
